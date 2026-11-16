@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#0a0d18">
+  <title>Shared checklist — Tickwise</title>
+  <link rel="stylesheet" href="./static/style.css">
+  <script src="./static/public.js" type="module"></script>
+</head>
+<body>
+  <div class="app-shell public-shell">
+    <header class="site-header"><a class="logo" href="./index.html"><span class="logo-icon">✳</span> tickwise<span class="logo-period">.</span></a><span class="header-note"><span class="status-dot"></span> a shared checklist</span></header>
+    <main class="public-main">
+      <div class="public-eyebrow"><span class="eyebrow-line"></span> SOMEONE SHARED A CHECKLIST WITH YOU</div>
+      <section class="surface public-card" id="public-card">
+        <div class="form-top-accent"></div>
+        <div class="public-card-inner">
+          <div class="micro-label">SHARED CHECKLIST · TICKWISE</div>
+          <h1 id="public-title">Loading your checklist...</h1>
+          <p id="public-description" class="public-desc"></p>
+          <div id="form-error" class="form-error" hidden></div>
+          <div id="checklist-form" hidden>
+            <div class="completion-line"><span id="completion-label">0 items complete</span><span id="completion-percent">0%</span></div>
+            <div class="completion-track"><div id="completion-bar"></div></div>
+            <div id="public-sections"></div>
+            <div class="respondent-block"><label class="field-label" for="respondent-name">Your name <span class="optional">optional</span></label><input type="text" id="respondent-name" maxlength="80" class="input" placeholder="How should we call you?"></div>
+            <button type="button" class="btn btn-primary btn-wide" id="submit-response">Submit my checklist <span>↗</span></button>
+            <p class="submit-helper">Without cloud storage, a completed response link will be generated for you to send back to the creator.</p>
+          </div>
+          <div class="success-screen" id="success-screen" hidden><div class="success-symbol">✓</div><h2>All set. Nicely done!</h2><p id="success-description">Your checklist response has been submitted.</p><div class="share-box" id="response-link-box" hidden><input id="response-link" class="input" type="text" readonly aria-label="Completed response link"><button type="button" id="copy-response-link" class="btn btn-primary">Copy</button></div><a href="./index.html" class="btn btn-soft">Make your own checklist ↗</a></div>
+        </div>
+      </section>
+      <p class="public-footer">Powered by <a href="./index.html">tickwise ✳</a> · one small tick at a time.</p>
+    </main>
+  </div>
+</body>
+</html>

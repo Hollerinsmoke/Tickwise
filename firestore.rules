@@ -1,0 +1,49 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    match /checklists/{checklistId} {
+      // Public checklist view; do NOT place secrets inside checklist data.
+      allow get: if true;
+      allow list: if false;
+
+      // The creator's Firebase anonymous account owns the checklist.
+      allow create: if request.auth != null
+        && request.resource.data.keys().hasOnly(['ownerUid','title','description','sections','updatedAt'])
+        && request.resource.data.ownerUid == request.auth.uid
+        && request.resource.data.title is string
+        && request.resource.data.title.size() <= 100
+        && request.resource.data.description is string
+        && request.resource.data.description.size() <= 500
+        && request.resource.data.sections is list
+        && request.resource.data.sections.size() <= 30;
+      allow update: if request.auth != null
+        && resource.data.ownerUid == request.auth.uid
+        && request.resource.data.ownerUid == resource.data.ownerUid
+        && request.resource.data.keys().hasOnly(['ownerUid','title','description','sections','updatedAt'])
+        && request.resource.data.title is string
+        && request.resource.data.title.size() <= 100
+        && request.resource.data.description is string
+        && request.resource.data.description.size() <= 500
+        && request.resource.data.sections is list
+        && request.resource.data.sections.size() <= 30;
+      allow delete: if request.auth != null && resource.data.ownerUid == request.auth.uid;
+
+      match /responses/{responseId} {
+        // Anyone signed in anonymously can submit; creator can read results.
+        allow create: if request.auth != null
+          && exists(/databases/$(database)/documents/checklists/$(checklistId))
+          && request.resource.data.keys().hasOnly(['name','checkedIds','snapshot','submittedAt'])
+          && request.resource.data.name is string
+          && request.resource.data.name.size() <= 80
+          && request.resource.data.checkedIds is list
+          && request.resource.data.checkedIds.size() <= 300
+          && request.resource.data.snapshot is list
+          && request.resource.data.snapshot.size() <= 300
+          && request.resource.data.submittedAt is string;
+        allow get, list: if request.auth != null &&
+          get(/databases/$(database)/documents/checklists/$(checklistId)).data.ownerUid == request.auth.uid;
+        allow update, delete: if false;
+      }
+    }
+  }
+}

@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#0a0d18">
+  <meta name="description" content="A beautiful countdown and shareable checklist workspace.">
+  <title>Tickwise — make plans happen</title>
+  <link rel="stylesheet" href="./static/style.css">
+  <script src="./static/app.js" type="module"></script>
+</head>
+<body>
+  <div class="app-shell">
+    <header class="site-header">
+      <a class="logo" href="./index.html" aria-label="Tickwise home"><span class="logo-icon">✳</span> tickwise<span class="logo-period">.</span></a>
+      <nav class="main-nav" aria-label="Main navigation">
+        <button type="button" class="nav-tab active" data-tab="countdown" aria-current="page"><span class="nav-glyph">◷</span> Countdown</button>
+        <button type="button" class="nav-tab" data-tab="checklists"><span class="nav-glyph">☑</span> Checklists</button>
+      </nav>
+      <span class="header-note"><span class="status-dot"></span> your planning space</span>
+    </header>
+
+    <main>
+      <section id="tab-countdown" class="tab-panel" aria-label="Countdown">
+        <div class="section-heading">
+          <div><div class="eyebrow"><span class="eyebrow-line"></span> THE COUNTDOWN STUDIO</div>
+            <h1>Good things take <em>time.</em><br>Make yours count.</h1>
+            <p class="lead">Count down to anything — a big exam, the next adventure, or a moment worth waiting for.</p>
+          </div>
+          <div class="heading-orbit" aria-hidden="true"><div class="orbit-ring"><span>✦</span></div></div>
+        </div>
+        <div class="timer-grid">
+          <section class="surface settings-card">
+            <div class="card-heading"><div><span class="micro-label">01 / CONFIGURE</span><h2>Set your countdown</h2></div><span class="card-icon lilac">⌛</span></div>
+            <label class="field-label" for="countdown-name">Give it a name</label>
+            <input id="countdown-name" class="input" type="text" maxlength="70" placeholder="e.g. My next adventure" value="My big moment">
+            <div class="form-block">
+              <div class="field-label">Count down by</div>
+              <div class="segmented" role="group" aria-label="Countdown type">
+                <button type="button" class="segment active" id="mode-duration" aria-pressed="true">Duration</button>
+                <button type="button" class="segment" id="mode-date" aria-pressed="false">Target date & time</button>
+              </div>
+            </div>
+            <div id="duration-controls" class="form-block">
+              <div class="field-label">How long?</div>
+              <div class="duration-inputs">
+                <label class="number-input"><span>Years</span><input type="number" id="in-years" min="0" step="1" value="0" inputmode="numeric"></label>
+                <label class="number-input"><span>Months</span><input type="number" id="in-months" min="0" step="1" value="0" inputmode="numeric"></label>
+                <label class="number-input"><span>Days</span><input type="number" id="in-days" min="0" step="1" value="7" inputmode="numeric"></label>
+                <label class="number-input"><span>Hours</span><input type="number" id="in-hours" min="0" step="1" value="0" inputmode="numeric"></label>
+                <label class="number-input"><span>Minutes</span><input type="number" id="in-minutes" min="0" step="1" value="0" inputmode="numeric"></label>
+                <label class="number-input"><span>Seconds</span><input type="number" id="in-seconds" min="0" step="1" value="0" inputmode="numeric"></label>
+              </div>
+            </div>
+            <div id="date-controls" class="form-block" hidden>
+              <label class="field-label" for="target-date">Your target date & time</label>
+              <input type="datetime-local" id="target-date" class="input">
+            </div>
+            <div class="form-block">
+              <div class="field-label label-between"><span>Show these time units</span><span class="soft-hint">Choose any combination</span></div>
+              <div class="unit-picker" id="unit-picker" role="group" aria-label="Visible countdown units">
+                <button class="unit-chip" data-unit="years" aria-pressed="false">Years</button>
+                <button class="unit-chip" data-unit="months" aria-pressed="false">Months</button>
+                <button class="unit-chip selected" data-unit="days" aria-pressed="true">Days <span>✓</span></button>
+                <button class="unit-chip selected" data-unit="hours" aria-pressed="true">Hours <span>✓</span></button>
+                <button class="unit-chip selected" data-unit="minutes" aria-pressed="true">Minutes <span>✓</span></button>
+                <button class="unit-chip selected" data-unit="seconds" aria-pressed="true">Seconds <span>✓</span></button>
+              </div>
+              <div class="helper-text">Hidden units are converted into the ones you keep. All numbers display as whole values (rounded down).</div>
+            </div>
+            <div class="form-block theme-block">
+              <div class="field-label label-between"><span>Countdown background</span><span class="soft-hint" id="theme-name">Nebula</span></div>
+              <div class="theme-picker" id="theme-picker" role="group" aria-label="Countdown background theme">
+                <button type="button" class="theme-choice selected" data-theme="nebula" aria-label="Nebula background" aria-pressed="true" title="Nebula"><span class="theme-swatch nebula"></span><span class="theme-label">Nebula</span></button>
+                <button type="button" class="theme-choice" data-theme="midnight" aria-label="Midnight background" aria-pressed="false" title="Midnight"><span class="theme-swatch midnight"></span><span class="theme-label">Midnight</span></button>
+                <button type="button" class="theme-choice" data-theme="aurora" aria-label="Aurora background" aria-pressed="false" title="Aurora"><span class="theme-swatch aurora"></span><span class="theme-label">Aurora</span></button>
+                <button type="button" class="theme-choice" data-theme="ocean" aria-label="Ocean background" aria-pressed="false" title="Ocean"><span class="theme-swatch ocean"></span><span class="theme-label">Ocean</span></button>
+                <button type="button" class="theme-choice" data-theme="sunset" aria-label="Sunset background" aria-pressed="false" title="Sunset"><span class="theme-swatch sunset"></span><span class="theme-label">Sunset</span></button>
+                <button type="button" class="theme-choice" data-theme="rose" aria-label="Rose background" aria-pressed="false" title="Rose"><span class="theme-swatch rose"></span><span class="theme-label">Rose</span></button>
+              </div>
+            </div>
+            <button type="button" class="btn btn-primary btn-wide" id="start-countdown"><span>✦</span> Start countdown <span class="btn-arrow">↗</span></button>
+          </section>
+
+          <section class="timer-preview" id="timer-preview" data-theme="nebula" aria-label="Countdown display">
+            <div class="preview-top"><span class="live-indicator"><span class="live-dot"></span><span id="countdown-state">READY WHEN YOU ARE</span></span><span class="preview-decoration">✳</span></div>
+            <div class="preview-body">
+              <div class="preview-kicker">COUNTING DOWN TO</div>
+              <h2 id="preview-name">My big moment</h2>
+              <div id="time-display" class="time-display" aria-live="off"><div class="time-cell"><strong>07</strong><span>DAYS</span></div><div class="time-cell"><strong>00</strong><span>HOURS</span></div><div class="time-cell"><strong>00</strong><span>MINUTES</span></div><div class="time-cell"><strong>00</strong><span>SECONDS</span></div></div>
+              <p id="preview-target" class="target-caption">Your next chapter starts here.</p>
+            </div>
+            <div class="preview-bottom">
+              <div class="progress-info"><span>YOUR PROGRESS</span><span id="progress-value">0%</span></div>
+              <div class="progress-track"><div class="progress-fill" id="countdown-progress"></div></div>
+              <div class="timer-actions"><button type="button" class="ghost-light" id="pause-countdown" disabled>Pause timer</button><button type="button" class="ghost-light" id="reset-countdown">Reset</button></div>
+            </div>
+            <div class="preview-blob blob-one"></div><div class="preview-blob blob-two"></div>
+          </section>
+        </div>
+        <div class="tip-strip"><span class="tip-sparkle">✳</span><div><strong>Make it your own.</strong> Try selecting only “Hours” to see the entire remaining time in whole hours, or choose a background that matches your mood.</div></div>
+      </section>
+
+      <section id="tab-checklists" class="tab-panel" aria-label="Checklists" hidden>
+        <div class="section-heading checklists-intro">
+          <div><div class="eyebrow"><span class="eyebrow-line"></span> THE CHECKLIST WORKSPACE</div>
+            <h1>Big plans, <em>small steps.</em></h1>
+            <p class="lead">Start with a template or build your own. Send a link, gather checklist replies, and keep everything in one place.</p>
+          </div>
+          <div class="tiny-doodle" aria-hidden="true"><span>✓</span><span>✓</span><span>✳</span></div>
+        </div>
+        <div class="section-topline"><div><div class="micro-label">YOUR STARTING POINT</div><h2>Start with a template</h2></div><span class="soft-hint">Pick one, then make it yours.</span></div>
+        <div class="template-grid">
+          <button type="button" class="template-card travel" data-template="travel"><span class="template-symbol">✈</span><span class="template-bottom"><strong>Travel checklist</strong><small>Pack smart, leave happy</small></span><span class="template-action">↗</span></button>
+          <button type="button" class="template-card school" data-template="school"><span class="template-symbol">▤</span><span class="template-bottom"><strong>School checklist</strong><small>Ready for every school day</small></span><span class="template-action">↗</span></button>
+          <button type="button" class="template-card cie" data-template="cie"><span class="template-symbol">✎</span><span class="template-bottom"><strong>CIE exam checklist</strong><small>Exam prep, sorted</small></span><span class="template-action">↗</span></button>
+        </div>
+        <div class="workspace-title"><div><div class="micro-label">02 / CREATE & SHARE</div><h2>Checklist builder</h2></div><button type="button" class="btn btn-soft" id="new-checklist">＋ New checklist</button></div>
+        <div class="builder-grid">
+          <aside class="surface sidebar-card">
+            <div class="side-heading"><h3>Your checklists</h3><span class="side-count" id="owned-count">0</span></div>
+            <p class="side-caption">Your checklists are saved in this browser; optional cloud storage supports automatic submissions.</p>
+            <div id="owned-list" class="owned-list"><div class="empty-list">No checklists yet.<br>Choose a template to begin.</div></div>
+            <div class="side-divider"></div>
+            <div class="owner-note"><span>🔐</span><p>Editor access stays in this browser. If Firebase is enabled, your anonymous sign-in protects cloud edits.</p></div>
+          </aside>
+
+          <section class="surface editor-card">
+            <div class="editor-top"><span class="micro-label" id="editing-state">NEW CHECKLIST</span><span class="editor-type">☑ Form builder</span></div>
+            <label for="checklist-title" class="field-label">Checklist title</label>
+            <input id="checklist-title" class="input editor-title-input" maxlength="100" placeholder="e.g. Weekend trip to the mountains" value="My checklist">
+            <label for="checklist-description" class="field-label field-spaced">Description <span class="optional">optional</span></label>
+            <textarea id="checklist-description" class="textarea" maxlength="500" rows="2" placeholder="Tell people what this checklist is for..."></textarea>
+            <div id="sections-container" class="sections-container"></div>
+            <button type="button" class="add-section-btn" id="add-section">＋ Add a section</button>
+            <div class="editor-footer"><div class="autosave-note">✳ Changes are published when you save.</div><button type="button" class="btn btn-primary" id="save-checklist">Save & get share link <span>↗</span></button></div>
+            <div class="share-panel" id="share-panel" hidden>
+              <div class="share-heading"><span class="share-check">✓</span><div><strong>Checklist published!</strong><p>Share the response link with anyone.</p></div></div>
+              <div class="share-box"><input id="public-link" type="text" readonly aria-label="Public response link"><button class="btn btn-dark" id="copy-public" type="button">Copy link</button></div>
+              <div class="share-box editor-share"><input id="edit-link" type="text" readonly aria-label="Editor link for this saved browser"><button class="btn btn-soft" id="copy-edit" type="button">Copy editor link</button></div>
+              <p class="share-note">In basic mode, people send completed response links back to you. Enable Firebase to receive submissions automatically.</p>
+              <div class="share-actions"><button type="button" class="plain-action" id="open-public">Open public form ↗</button><button type="button" class="plain-action" id="view-responses">View submissions →</button></div>
+            </div>
+          </section>
+        </div>
+        <section class="surface responses-card" id="responses-card" hidden>
+          <div class="responses-head"><div><span class="micro-label">CHECKLIST RESPONSE INBOX</span><h2>Checklist responses</h2></div><button type="button" class="btn btn-soft" id="refresh-responses">↻ Refresh</button></div>
+          <div id="responses-list"></div>
+        </section>
+      </section>
+    </main>
+    <footer class="site-footer"><span>✳ tickwise. <span class="footer-muted">A little structure goes a long way.</span></span><span>Made for the moments that matter.</span></footer>
+  </div>
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+</body>
+</html>
